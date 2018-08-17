@@ -62,7 +62,6 @@ document.onkeyup = function (event) {
 function setUpPageWithNewWord() {
     // Randomly select the index of the new word 
     game.wordIndex = Math.floor(Math.random() * wordBank.length);
-
     game.word = wordBank[game.wordIndex];
     convertWordToListOfLetters();
     createRepresentationOfWord();
@@ -73,8 +72,13 @@ function updatePage() {
     document.querySelector("#number-of-wins").innerHTML = game.wins;
     document.querySelector("#word-in-progress").innerHTML = game.repOfWord;
     document.querySelector("#number-of-guesses-remaining").innerHTML = game.guessesRemaining;
-    document.querySelector("#letters-already-guessed").innerHTML = game.lettersGuessed;
+    var repOfLettersGuessed = createRepresentationOfLettersGuessed();
+    document.querySelector("#letters-already-guessed").innerHTML = repOfLettersGuessed;
     document.querySelector("#prev-word").innerHTML = game.prevWord;
+    if (game.prevWord !== "") {
+        var imageName = "assets/images/" + game.prevWord.toLowerCase() + ".jpg";
+        document.getElementById("fruit-pic").setAttribute("src", imageName);
+    }
 }
 
 function convertWordToListOfLetters() {
@@ -113,7 +117,7 @@ function compareLetterToListOfLetters(letter) {
 
 // Create a representation of the current word to display,
 // where each letter is replaced with an underscore, i.e.
-// "APPLE" is represented by "_____"
+// "APPLE" is represented by " _  _  _  _  _ "
 function createRepresentationOfWord() {
     var rep = "";
     for (var i = 0; i < game.word.length; i++) {
@@ -138,4 +142,15 @@ function updateRepresentationOfWord(letter) {
         }
     }
     game.repOfWord = updatedRepOfWord;
+}
+
+function createRepresentationOfLettersGuessed() {
+    var repOfLettersGuessed = "";
+    for (var i = 0; i < game.lettersGuessed.length; i++) {
+        repOfLettersGuessed += game.lettersGuessed[i];
+        if (i < game.lettersGuessed.length-1) {
+            repOfLettersGuessed += " ";
+        }
+    }
+    return repOfLettersGuessed;
 }
