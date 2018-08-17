@@ -61,14 +61,6 @@ function pickANewQuestion() {
     currentRepresentationOfWord = createRepresentationOfWord(currentWord);
 }
 
-function setUpPageWithNewQuestion(num) {
-    // Set up the a new question on the page
-    document.querySelector("#number-of-wins").innerHTML = wins;
-    document.querySelector("#word-in-progress").innerHTML = currentRepresentationOfWord;
-    document.querySelector("#number-of-guesses-remaining").innerHTML = guessesRemaining;
-    document.querySelector("#letters-already-guessed").innerHTML = lettersGuessed;
-}
-
 function updatePage() {
     document.querySelector("#number-of-wins").innerHTML = wins;
     document.querySelector("#word-in-progress").innerHTML = currentRepresentationOfWord;
@@ -91,15 +83,6 @@ function convertWordToListOfLetters(word) {
     return listOfLetters;
 }
 
-// var currentWord = "apple";
-// var currentRepresentationOfWord = "_____";
-// var lettersToBeGuessed = ["a", "p", "l", "e"];
-// compareLetterToListOfLetters("a");
-// console.log(currentRepresentationOfWord);
-
-// compareLetterToListOfLetters("l");
-// console.log(currentRepresentationOfWord);
-
 function compareLetterToListOfLetters(letter) {
     for (var i = 0; i < lettersToBeGuessed.length; i++) {
         // if the current letter is in the list of letters...
@@ -111,24 +94,31 @@ function compareLetterToListOfLetters(letter) {
             console.log(lettersToBeGuessed);
 
             // update current representation of the word
-            updatedRepresentationOfWord = "";
-            for (var i = 0; i < currentWord.length; i++) {
-                if (letter === currentWord[i]) {
-                    updatedRepresentationOfWord += letter;
-                }
-                else {
-                    updatedRepresentationOfWord += currentRepresentationOfWord[i];
-                }
-            }
-            currentRepresentationOfWord = updatedRepresentationOfWord;
+            updateRepresentationOfWord(currentWord);
         }
     }
 }
 
+// Create a representation of the input word to display,
+// where each letter is replaced with an underscore, i.e.
+// "APPLE" is represented by "_____"
 function createRepresentationOfWord(word) {
     var rep = "";
     for (var i = 0; i < word.length; i++) {
         rep += "_";
     }
     return rep;
+}
+
+function updateRepresentationOfWord(word) {
+    var updatedRepOfWord = "";
+    for (var i = 0; i < currentWord.length; i++) {
+        if (letter === currentWord.charAt(i)) {
+            updatedRepOfWord += letter;
+        }
+        else {
+            updatedRepOfWord += currentRepresentationOfWord[i];
+        }
+    }
+    currentRepresentationOfWord = updatedRepOfWord;
 }
