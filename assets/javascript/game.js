@@ -1,7 +1,10 @@
 // JavaScript for the Hangman Game
 
 // The word bank we'll be using for this game
-var wordBank = ["APPLE", "BANANA", "ORANGE"];
+var wordBank = ["APPLE", "BANANA", "ORANGE", "KIWI", "STRAWBERRY",
+    "POMEGRANATE", "PAPAYA", "PINEAPPLE", "GRAPEFRUIT", "LEMON",
+    "PERSIMMON", "GRAPE", "PEAR", "BLACKBERRY", "MANGO",
+    "TANGERINE", "NECTARINE", "PLUM", "APRICOT", "PLUOT"];
 
 //Representation of Game as an object
 var game = {
@@ -11,7 +14,8 @@ var game = {
     wins: 0,
     guessesRemaining: 12,
     lettersGuessed: [],
-    lettersToBeGuessed: []
+    lettersToBeGuessed: [],
+    prevWord: ""
 };
 
 // Initialize the page with the first word to be guessed
@@ -40,12 +44,14 @@ document.onkeyup = function (event) {
                 game.wins++;
                 game.lettersGuessed = [];
                 game.guessesRemaining = 12;
+                game.prevWord = game.word;
                 setUpPageWithNewWord();
             }
             else if (game.guessesRemaining === 0) {
                 // pick a new question, but don't increment the number of wins
                 game.lettersGuessed = [];
                 game.guessesRemaining = 12;
+                game.prevWord = game.word;
                 setUpPageWithNewWord();
             }
             updatePage();
@@ -68,6 +74,7 @@ function updatePage() {
     document.querySelector("#word-in-progress").innerHTML = game.repOfWord;
     document.querySelector("#number-of-guesses-remaining").innerHTML = game.guessesRemaining;
     document.querySelector("#letters-already-guessed").innerHTML = game.lettersGuessed;
+    document.querySelector("#prev-word").innerHTML = game.prevWord;
 }
 
 function convertWordToListOfLetters() {
@@ -110,7 +117,7 @@ function compareLetterToListOfLetters(letter) {
 function createRepresentationOfWord() {
     var rep = "";
     for (var i = 0; i < game.word.length; i++) {
-        rep += "_";
+        rep += " _ ";
     }
     game.repOfWord = rep;
 }
@@ -122,10 +129,12 @@ function updateRepresentationOfWord(letter) {
     var updatedRepOfWord = "";
     for (var i = 0; i < game.word.length; i++) {
         if (letter === game.word.charAt(i)) {
-            updatedRepOfWord += letter;
+            var stuffToAdd = " " + letter + " ";
+            updatedRepOfWord += stuffToAdd;
         }
         else {
-            updatedRepOfWord += game.repOfWord[i];
+            var stuff = " " + game.repOfWord.charAt(3*i + 1) + " ";
+            updatedRepOfWord += stuff;
         }
     }
     game.repOfWord = updatedRepOfWord;
