@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Fruit Word Guess Game</h1>
+        <h2 id="prev-word"></h2>
+        <div class="container">
+            <div id="left">
+                <!--an image of some sort-->
+                <div id="image-holder">
+                    <img id="fruit-pic" src="">
+                </div>
+            </div>
+            <div id="right">
+                <p>Press any key to get started!</p>
+                <p>Wins:</p>
+                <p id="number-of-wins"></p>
+                <p>Current Word:</p>
+                <p id="word-in-progress"></p>
+                <p>Number of Guesses Remaining:</p>
+                <p id="number-of-guesses-remaining"></p>
+                <p>Letters Already Guessed:</p>
+                <p id="letters-already-guessed"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/javascript/game.js"></script>
+</body>
+</html>
